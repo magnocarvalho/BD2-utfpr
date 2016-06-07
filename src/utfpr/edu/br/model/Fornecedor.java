@@ -46,6 +46,7 @@ public class Fornecedor implements Serializable {
     private String telefone;
     @Column(name = "razao_social")
     private String razaoSocial;
+    private String cidade;
 
     public Fornecedor() {
     }
@@ -149,6 +150,14 @@ public class Fornecedor implements Serializable {
     @Override
     public String toString() {
         return "utfpr.edu.br.model.Fornecedor[ id=" + id + " ]";
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
     
 }

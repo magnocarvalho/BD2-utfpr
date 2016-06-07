@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utfpr.edu.br.conexao.TransactionUtil;
+import utfpr.edu.br.dao.DaoFornecedor;
 import utfpr.edu.br.model.Fornecedor;
 import utfpr.edu.br.util.Util;
 
@@ -21,13 +22,14 @@ public class FrmFornecedor extends javax.swing.JFrame {
     
     
     private DefaultTableModel model;
-    private String dadosFornecedor[] = new String[]{"id","CNPJ","Razao Social","Enereço","Descrição","cep","logadouro","numero","Bairro","Cidade","estado","telefone" };
-    private List<Fornecedor> setor;
+    private String dadosFornecedor[] = new String[]{"id","CNPJ","Razao Social","Telefone","cep","Endereço","logadouro","numero","Bairro","Cidade","Estado" };
+    private List<Fornecedor> forne;
     /**
      * Creates new form FrmFornecedor
      */
     public FrmFornecedor() {
         initComponents();
+        iniciarTabela();
     }
 
     /**
@@ -116,4 +118,42 @@ public class FrmFornecedor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbFornecedor;
     // End of variables declaration//GEN-END:variables
+    private void preenchertabela()
+    {
+        model = new DefaultTableModel();
+
+        model.setColumnIdentifiers(dadosFornecedor);
+
+
+        if (forne != null || forne.isEmpty()) {
+            for (Fornecedor f : forne) {
+                model.addRow(new Object[]{
+                    
+                    f.getId(),
+                    f.getCnpj(),
+                    f.getRazaoSocial(),
+                    f.getTelefone(),
+                    f.getCep(),
+                    f.getRua(),
+                    f.getNumero(),
+                    f.getBairro(),
+                    f.getCidade(),
+                    f.getEstado()
+                    
+                });
+            }
+            tbFornecedor.setModel(model);
+        } else {
+            model = new DefaultTableModel();
+            model.setColumnIdentifiers(dadosFornecedor);
+            tbFornecedor.setModel(model);
+        }
+    }
+     private void iniciarTabela() {
+        forne = new DaoFornecedor().listar();
+        if (forne != null) {
+            preenchertabela();
+        }
+    }
+
 }
