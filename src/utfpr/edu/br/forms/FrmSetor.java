@@ -259,7 +259,7 @@ public class FrmSetor extends javax.swing.JFrame {
             preenchertabela();
         } catch (Exception e) {
             Logger.getLogger(FrmSetor.class.getName()).log(Level.SEVERE, null, e);//erro
-            Util.dispayMsg("Erro ao Pesquisar Por Nome!");
+            Util.dispayMsg("Erro ao Pesquisar Por Descrição!");
 
         }
     }
