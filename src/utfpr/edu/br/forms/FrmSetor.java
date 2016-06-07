@@ -251,7 +251,7 @@ public class FrmSetor extends javax.swing.JFrame {
             preenchertabela();
         }
     }
-     private void obterPorDescricao() 
+    private void obterPorDescricao() 
     {
         try {
             setor.clear();
