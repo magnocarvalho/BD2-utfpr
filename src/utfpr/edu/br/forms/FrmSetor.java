@@ -234,7 +234,8 @@ public class FrmSetor extends javax.swing.JFrame {
             for (Setor s : setor) {
                 model.addRow(new Object[]{
                     
-                    s.getDescricao(),s.getId()
+                    s.getId(),
+                    s.getDescricao()
                 });
             }
             tbSetor.setModel(model);
