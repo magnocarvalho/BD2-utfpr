@@ -367,11 +367,32 @@ public class FrmSetor extends javax.swing.JFrame {
         if (selecionada == -1){
             JOptionPane.showMessageDialog(null, "Nenhum selecionado, Selecione uma linha da tabela", "Mensagem", JOptionPane.ERROR_MESSAGE, null);
         }else{
-            txtId.setText(tbSetor.getValueAt(selecionada, 0).toString()));
+            txtId.setText(tbSetor.getValueAt(selecionada, 0).toString());
             txtId.setEditable(false);
-            txtDescricao.setText(tbSetor.getValueAt(selecionada, 1).toString()));
+            txtDescricao.setText(tbSetor.getValueAt(selecionada, 1).toString());
             
         }
+     }
+     void atualizar()
+     {
+        Setor s = new Setor();
+        if (!txtId.getText().isEmpty()) 
+        {  //verifica se o campo Codigo esta vazio
+                s.setId(Integer.parseInt(txtId.getText()));
+        }
+        
+        s.setDescricao(txtDescricao.getText().trim());
+        
+        TransactionUtil.beginTransaction();
+            try {
+                new DaoSetor().atualizar(s);
+                TransactionUtil.commit();
+            } catch (Exception ex) {
+                TransactionUtil.rollback();
+                Logger.getLogger(FrmSetor.class.getName()).log(Level.SEVERE, null, ex);//erro
+            }
+            
+        novo();  
      }
 }
 

@@ -19,4 +19,6 @@ interface Dao<T> {
     public T obterPorId(int id);
 
     public List<T> listar(String filtro);
+    
+    public void atualizar(T entidade);
 }

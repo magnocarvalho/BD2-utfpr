@@ -32,7 +32,12 @@ public abstract class DaoGenerics<T> {
         }
         return objeto;
     }
-
+    public void atualizar(T o)
+    {
+        session.update(o);
+        session.flush();
+    }
+    
     public List<T> listar() {
         List<T> lista = null;        
         Query query = session.createQuery("from " + alvo.getSimpleName());
