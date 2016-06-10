@@ -393,6 +393,8 @@ public class FrmSetor extends javax.swing.JFrame {
             }
             
         novo();  
+                    txtId.setEditable(true);
+
      }
 }
 

@@ -29,6 +29,7 @@ public class NovoMDIApplication extends javax.swing.JFrame {
 
         desktopPane = new javax.swing.JDesktopPane();
         btnSetor = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -54,6 +55,15 @@ public class NovoMDIApplication extends javax.swing.JFrame {
         });
         desktopPane.add(btnSetor);
         btnSetor.setBounds(50, 40, 130, 32);
+
+        jButton1.setText("Fornecedor");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        desktopPane.add(jButton1);
+        jButton1.setBounds(50, 80, 130, 32);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -143,6 +153,13 @@ public class NovoMDIApplication extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSetorActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        FrmFornecedor f = new FrmFornecedor();
+        f.setVisible(true);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -190,6 +207,7 @@ public class NovoMDIApplication extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;

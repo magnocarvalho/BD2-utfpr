@@ -31,6 +31,18 @@ public class DaoFornecedor extends DaoGenerics<Fornecedor> {
         }
         return lista;
     }
+    public List<Fornecedor> obterCnpj(String descricao) {
+        List<Fornecedor> lista = null;
+        if (descricao != null || !"".equals(descricao)) {
+
+            Query query = session.createQuery("From "
+                    + alvo.getSimpleName()
+                    + " where cnpj LIKE '"
+                    + descricao + "%'");
+            lista = query.list();
+        }
+        return lista;
+    }
    
 }
 
