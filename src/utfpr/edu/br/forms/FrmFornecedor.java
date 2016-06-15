@@ -612,7 +612,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
             txtId.setText(tbF.getValueAt(i, 0).toString().trim());
             if(tbF.getValueAt(i, 1).toString().trim() == null)
             {
-                txtCnpj.setText(null);
+                txtCnpj.setText("");
             }
             else
             {
