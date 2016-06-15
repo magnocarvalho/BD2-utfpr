@@ -41,7 +41,17 @@ public abstract class DaoGenerics<T> {
     public List<T> listar() {
         List<T> lista = null;        
         Query query = session.createQuery("from " + alvo.getSimpleName());
-        lista = query.list();        
+        lista = query.list();   
+           
         return lista;
+    }
+    public int contar()
+    {
+        int i;
+        Query query = session.createQuery("from" + alvo.getSimpleName() +" GROUP BY id");
+        i = query.getFirstResult();
+        i++;
+        
+        return i;
     }
 }

@@ -21,4 +21,6 @@ interface Dao<T> {
     public List<T> listar(String filtro);
     
     public void atualizar(T entidade);
+    
+    public int contar();
 }

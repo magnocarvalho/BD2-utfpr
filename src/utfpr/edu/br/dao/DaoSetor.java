@@ -31,6 +31,5 @@ public class DaoSetor extends DaoGenerics<Setor> {
         }
         return lista;
     }
-    
    
 }
