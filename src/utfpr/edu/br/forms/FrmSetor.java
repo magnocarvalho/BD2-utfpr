@@ -221,10 +221,6 @@ public class FrmSetor extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         novo();
-        int i;
-        
-        i = new DaoSetor().contar();
-        txtId.setText(String.valueOf(i));
         txtId.setEditable(true);
         
         
