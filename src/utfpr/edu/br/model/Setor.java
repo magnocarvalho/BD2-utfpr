@@ -23,24 +23,26 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author magno
  */
 @Entity
-@Table(name = "setor")
+@Table(name = "setor", catalog = "dbestoque", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Setor.findAll", query = "SELECT s FROM Setor s"),
     @NamedQuery(name = "Setor.findById", query = "SELECT s FROM Setor s WHERE s.id = :id"),
-    @NamedQuery(name = "Setor.findByDescricao", query = "SELECT s FROM Setor s WHERE s.descricao = :descricao")})
+    @NamedQuery(name = "Setor.findByDescricao", query = "SELECT s FROM Setor s WHERE s.descricao = :descricao"),
+    @NamedQuery(name = "Setor.findByQuantidade", query = "SELECT s FROM Setor s WHERE s.quantidade = :quantidade")})
 public class Setor implements Serializable {
-
-    @OneToMany(mappedBy = "fkSetor")
-    private Collection<Familia> familiaCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "descricao")
+    @Column(name = "descricao", length = 2147483647)
     private String descricao;
+    @Column(name = "quantidade")
+    private Integer quantidade;
+    @OneToMany(mappedBy = "fkSetor")
+    private Collection<Familia> familiaCollection;
 
     public Setor() {
     }
@@ -63,6 +65,23 @@ public class Setor implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    @XmlTransient
+    public Collection<Familia> getFamiliaCollection() {
+        return familiaCollection;
+    }
+
+    public void setFamiliaCollection(Collection<Familia> familiaCollection) {
+        this.familiaCollection = familiaCollection;
     }
 
     @Override
@@ -88,15 +107,6 @@ public class Setor implements Serializable {
     @Override
     public String toString() {
         return "utfpr.edu.br.model.Setor[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Familia> getFamiliaCollection() {
-        return familiaCollection;
-    }
-
-    public void setFamiliaCollection(Collection<Familia> familiaCollection) {
-        this.familiaCollection = familiaCollection;
     }
     
 }

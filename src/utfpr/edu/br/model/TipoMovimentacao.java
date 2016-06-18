@@ -10,7 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,32 +20,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author magno
  */
 @Entity
-@Table(name = "entrada_produto", catalog = "dbestoque", schema = "public")
+@Table(name = "tipo_movimentacao", catalog = "dbestoque", schema = "public")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EntradaProduto.findAll", query = "SELECT e FROM EntradaProduto e"),
-    @NamedQuery(name = "EntradaProduto.findById", query = "SELECT e FROM EntradaProduto e WHERE e.id = :id"),
-    @NamedQuery(name = "EntradaProduto.findByFkSetor", query = "SELECT e FROM EntradaProduto e WHERE e.fkSetor = :fkSetor"),
-    @NamedQuery(name = "EntradaProduto.findByOperacao", query = "SELECT e FROM EntradaProduto e WHERE e.operacao = :operacao")})
-public class EntradaProduto implements Serializable {
+    @NamedQuery(name = "TipoMovimentacao.findAll", query = "SELECT t FROM TipoMovimentacao t"),
+    @NamedQuery(name = "TipoMovimentacao.findById", query = "SELECT t FROM TipoMovimentacao t WHERE t.id = :id"),
+    @NamedQuery(name = "TipoMovimentacao.findByTipo", query = "SELECT t FROM TipoMovimentacao t WHERE t.tipo = :tipo")})
+public class TipoMovimentacao implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Lob
-    @Column(name = "dt")
-    private byte[] dt;
-    @Column(name = "fk_setor")
-    private Integer fkSetor;
-    @Column(name = "operacao")
-    private Boolean operacao;
+    @Column(name = "tipo", length = 20)
+    private String tipo;
 
-    public EntradaProduto() {
+    public TipoMovimentacao() {
     }
 
-    public EntradaProduto(Integer id) {
+    public TipoMovimentacao(Integer id) {
         this.id = id;
     }
 
@@ -58,28 +51,12 @@ public class EntradaProduto implements Serializable {
         this.id = id;
     }
 
-    public byte[] getDt() {
-        return dt;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setDt(byte[] dt) {
-        this.dt = dt;
-    }
-
-    public Integer getFkSetor() {
-        return fkSetor;
-    }
-
-    public void setFkSetor(Integer fkSetor) {
-        this.fkSetor = fkSetor;
-    }
-
-    public Boolean getOperacao() {
-        return operacao;
-    }
-
-    public void setOperacao(Boolean operacao) {
-        this.operacao = operacao;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override
@@ -92,10 +69,10 @@ public class EntradaProduto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EntradaProduto)) {
+        if (!(object instanceof TipoMovimentacao)) {
             return false;
         }
-        EntradaProduto other = (EntradaProduto) object;
+        TipoMovimentacao other = (TipoMovimentacao) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -104,7 +81,7 @@ public class EntradaProduto implements Serializable {
 
     @Override
     public String toString() {
-        return "utfpr.edu.br.model.EntradaProduto[ id=" + id + " ]";
+        return "utfpr.edu.br.model.TipoMovimentacao[ id=" + id + " ]";
     }
     
 }

@@ -25,7 +25,7 @@ public class DaoFornecedor extends DaoGenerics<Fornecedor> {
 
             Query query = session.createQuery("From "
                     + alvo.getSimpleName()
-                    + " where descricao LIKE '%"
+                    + " where razao_social LIKE '%"
                     + descricao + "%'");
             lista = query.list();
         }

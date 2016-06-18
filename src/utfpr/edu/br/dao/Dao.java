@@ -22,5 +22,5 @@ interface Dao<T> {
     
     public void atualizar(T entidade);
     
-    public int contar();
+    
 }

@@ -25,21 +25,24 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author magno
  */
 @Entity
-@Table(name = "familia")
+@Table(name = "familia", catalog = "dbestoque", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Familia.findAll", query = "SELECT f FROM Familia f"),
     @NamedQuery(name = "Familia.findById", query = "SELECT f FROM Familia f WHERE f.id = :id"),
-    @NamedQuery(name = "Familia.findByDescricao", query = "SELECT f FROM Familia f WHERE f.descricao = :descricao")})
+    @NamedQuery(name = "Familia.findByDescricao", query = "SELECT f FROM Familia f WHERE f.descricao = :descricao"),
+    @NamedQuery(name = "Familia.findByQuantidade", query = "SELECT f FROM Familia f WHERE f.quantidade = :quantidade")})
 public class Familia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "descricao")
+    @Column(name = "descricao", length = 2147483647)
     private String descricao;
+    @Column(name = "quantidade")
+    private Integer quantidade;
     @OneToMany(mappedBy = "fkFamilia")
     private Collection<Produto> produtoCollection;
     @JoinColumn(name = "fk_setor", referencedColumnName = "id")
@@ -67,6 +70,14 @@ public class Familia implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
 
     @XmlTransient

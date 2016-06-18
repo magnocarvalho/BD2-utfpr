@@ -20,58 +20,59 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author magno
  */
 @Entity
-@Table(catalog = "dbestoque", schema = "public")
+@Table(name = "fornecedor")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Fornecedor.findAll", query = "SELECT f FROM Fornecedor f"),
-    @NamedQuery(name = "Fornecedor.findById", query = "SELECT f FROM Fornecedor f WHERE f.id = :id"),
     @NamedQuery(name = "Fornecedor.findByCnpj", query = "SELECT f FROM Fornecedor f WHERE f.cnpj = :cnpj"),
-    @NamedQuery(name = "Fornecedor.findByRua", query = "SELECT f FROM Fornecedor f WHERE f.rua = :rua"),
+    @NamedQuery(name = "Fornecedor.findByRazaoSocial", query = "SELECT f FROM Fornecedor f WHERE f.razaoSocial = :razaoSocial"),
+    @NamedQuery(name = "Fornecedor.findByLogradouro", query = "SELECT f FROM Fornecedor f WHERE f.logradouro = :logradouro"),
     @NamedQuery(name = "Fornecedor.findByNumero", query = "SELECT f FROM Fornecedor f WHERE f.numero = :numero"),
     @NamedQuery(name = "Fornecedor.findByCep", query = "SELECT f FROM Fornecedor f WHERE f.cep = :cep"),
     @NamedQuery(name = "Fornecedor.findByBairro", query = "SELECT f FROM Fornecedor f WHERE f.bairro = :bairro"),
-    @NamedQuery(name = "Fornecedor.findByTelefone", query = "SELECT f FROM Fornecedor f WHERE f.telefone = :telefone"),
-    @NamedQuery(name = "Fornecedor.findByRazaoSocial", query = "SELECT f FROM Fornecedor f WHERE f.razaoSocial = :razaoSocial"),
     @NamedQuery(name = "Fornecedor.findByCidade", query = "SELECT f FROM Fornecedor f WHERE f.cidade = :cidade"),
-    @NamedQuery(name = "Fornecedor.findByFkEstado", query = "SELECT f FROM Fornecedor f WHERE f.fkEstado = :fkEstado")})
+    @NamedQuery(name = "Fornecedor.findByFkEstado", query = "SELECT f FROM Fornecedor f WHERE f.fkEstado = :fkEstado"),
+    @NamedQuery(name = "Fornecedor.findByRegistro", query = "SELECT f FROM Fornecedor f WHERE f.registro = :registro"),
+    @NamedQuery(name = "Fornecedor.findById", query = "SELECT f FROM Fornecedor f WHERE f.id = :id"),
+    @NamedQuery(name = "Fornecedor.findByTelefone", query = "SELECT f FROM Fornecedor f WHERE f.telefone = :telefone")})
 public class Fornecedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(nullable = false)
-    private Integer id;
-    @Column(length = 18)
+    @Column(name = "cnpj")
     private String cnpj;
-    @Column(length = 100)
-    private String rua;
-    @Column(length = 10)
-    private String numero;
-    @Column(length = 9)
-    private String cep;
-    @Column(length = 30)
-    private String bairro;
-    @Column(length = 18)
-    private String telefone;
-    @Column(name = "razao_social", length = 255)
+    @Column(name = "razao_social")
     private String razaoSocial;
-    @Column(length = 100)
+    @Column(name = "logradouro")
+    private String logradouro;
+    @Column(name = "numero")
+    private String numero;
+    @Column(name = "cep")
+    private String cep;
+    @Column(name = "bairro")
+    private String bairro;
+    @Column(name = "cidade")
     private String cidade;
     @Column(name = "fk_estado")
     private Integer fkEstado;
+    @Column(name = "registro")
+    private Boolean registro;
+    @Basic(optional = false)
+    @Column(name = "id")
+    private int id;
+    @Column(name = "telefone")
+    private String telefone;
 
     public Fornecedor() {
     }
 
-    public Fornecedor(Integer id) {
-        this.id = id;
+    public Fornecedor(String cnpj) {
+        this.cnpj = cnpj;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
+    public Fornecedor(String cnpj, int id) {
+        this.cnpj = cnpj;
         this.id = id;
     }
 
@@ -83,12 +84,20 @@ public class Fornecedor implements Serializable {
         this.cnpj = cnpj;
     }
 
-    public String getRua() {
-        return rua;
+    public String getRazaoSocial() {
+        return razaoSocial;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setRazaoSocial(String razaoSocial) {
+        this.razaoSocial = razaoSocial;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getNumero() {
@@ -115,22 +124,6 @@ public class Fornecedor implements Serializable {
         this.bairro = bairro;
     }
 
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getRazaoSocial() {
-        return razaoSocial;
-    }
-
-    public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
-    }
-
     public String getCidade() {
         return cidade;
     }
@@ -147,10 +140,34 @@ public class Fornecedor implements Serializable {
         this.fkEstado = fkEstado;
     }
 
+    public Boolean getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(Boolean registro) {
+        this.registro = registro;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (cnpj != null ? cnpj.hashCode() : 0);
         return hash;
     }
 
@@ -161,7 +178,7 @@ public class Fornecedor implements Serializable {
             return false;
         }
         Fornecedor other = (Fornecedor) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.cnpj == null && other.cnpj != null) || (this.cnpj != null && !this.cnpj.equals(other.cnpj))) {
             return false;
         }
         return true;
@@ -169,7 +186,7 @@ public class Fornecedor implements Serializable {
 
     @Override
     public String toString() {
-        return "utfpr.edu.br.model.Fornecedor[ id=" + id + " ]";
+        return "utfpr.edu.br.model.Fornecedor[ cnpj=" + cnpj + " ]";
     }
     
 }

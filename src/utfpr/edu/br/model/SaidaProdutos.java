@@ -10,7 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,32 +20,35 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author magno
  */
 @Entity
-@Table(name = "entrada_produto", catalog = "dbestoque", schema = "public")
+@Table(name = "saida_produtos", catalog = "dbestoque", schema = "public")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EntradaProduto.findAll", query = "SELECT e FROM EntradaProduto e"),
-    @NamedQuery(name = "EntradaProduto.findById", query = "SELECT e FROM EntradaProduto e WHERE e.id = :id"),
-    @NamedQuery(name = "EntradaProduto.findByFkSetor", query = "SELECT e FROM EntradaProduto e WHERE e.fkSetor = :fkSetor"),
-    @NamedQuery(name = "EntradaProduto.findByOperacao", query = "SELECT e FROM EntradaProduto e WHERE e.operacao = :operacao")})
-public class EntradaProduto implements Serializable {
+    @NamedQuery(name = "SaidaProdutos.findAll", query = "SELECT s FROM SaidaProdutos s"),
+    @NamedQuery(name = "SaidaProdutos.findById", query = "SELECT s FROM SaidaProdutos s WHERE s.id = :id"),
+    @NamedQuery(name = "SaidaProdutos.findByData", query = "SELECT s FROM SaidaProdutos s WHERE s.data = :data"),
+    @NamedQuery(name = "SaidaProdutos.findByFkSetor", query = "SELECT s FROM SaidaProdutos s WHERE s.fkSetor = :fkSetor"),
+    @NamedQuery(name = "SaidaProdutos.findByFkProduto", query = "SELECT s FROM SaidaProdutos s WHERE s.fkProduto = :fkProduto"),
+    @NamedQuery(name = "SaidaProdutos.findByQuantidade", query = "SELECT s FROM SaidaProdutos s WHERE s.quantidade = :quantidade")})
+public class SaidaProdutos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Lob
-    @Column(name = "dt")
-    private byte[] dt;
+    @Column(name = "data")
+    private Serializable data;
     @Column(name = "fk_setor")
     private Integer fkSetor;
-    @Column(name = "operacao")
-    private Boolean operacao;
+    @Column(name = "fk_produto")
+    private Integer fkProduto;
+    @Column(name = "quantidade")
+    private Integer quantidade;
 
-    public EntradaProduto() {
+    public SaidaProdutos() {
     }
 
-    public EntradaProduto(Integer id) {
+    public SaidaProdutos(Integer id) {
         this.id = id;
     }
 
@@ -58,12 +60,12 @@ public class EntradaProduto implements Serializable {
         this.id = id;
     }
 
-    public byte[] getDt() {
-        return dt;
+    public Serializable getData() {
+        return data;
     }
 
-    public void setDt(byte[] dt) {
-        this.dt = dt;
+    public void setData(Serializable data) {
+        this.data = data;
     }
 
     public Integer getFkSetor() {
@@ -74,12 +76,20 @@ public class EntradaProduto implements Serializable {
         this.fkSetor = fkSetor;
     }
 
-    public Boolean getOperacao() {
-        return operacao;
+    public Integer getFkProduto() {
+        return fkProduto;
     }
 
-    public void setOperacao(Boolean operacao) {
-        this.operacao = operacao;
+    public void setFkProduto(Integer fkProduto) {
+        this.fkProduto = fkProduto;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
 
     @Override
@@ -92,10 +102,10 @@ public class EntradaProduto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EntradaProduto)) {
+        if (!(object instanceof SaidaProdutos)) {
             return false;
         }
-        EntradaProduto other = (EntradaProduto) object;
+        SaidaProdutos other = (SaidaProdutos) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -104,7 +114,7 @@ public class EntradaProduto implements Serializable {
 
     @Override
     public String toString() {
-        return "utfpr.edu.br.model.EntradaProduto[ id=" + id + " ]";
+        return "utfpr.edu.br.model.SaidaProdutos[ id=" + id + " ]";
     }
     
 }
