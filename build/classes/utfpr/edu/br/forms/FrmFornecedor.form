@@ -318,7 +318,7 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="27">
-            <StringItem index="0" value=" Acre (AC)"/>
+            <StringItem index="0" value="Acre (AC)"/>
             <StringItem index="1" value="Alagoas (AL)"/>
             <StringItem index="2" value="Amap&#xe1; (AP)"/>
             <StringItem index="3" value="Amazonas (AM)"/>
@@ -331,7 +331,7 @@
             <StringItem index="10" value="Mato Grosso (MT)"/>
             <StringItem index="11" value="Mato Grosso do Sul (MS)"/>
             <StringItem index="12" value="Minas Gerais (MG)"/>
-            <StringItem index="13" value="Par&#xe1; (PA) "/>
+            <StringItem index="13" value="Par&#xe1; (PA)"/>
             <StringItem index="14" value="Para&#xed;ba (PB)"/>
             <StringItem index="15" value="Paran&#xe1; (PR)"/>
             <StringItem index="16" value="Pernambuco (PE)"/>

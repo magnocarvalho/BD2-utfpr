@@ -6,13 +6,11 @@
 package utfpr.edu.br.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,30 +20,25 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author magno
  */
-@Entity
-@Table(name = "setor")
+@MappedSuperclass
+@Table(name = "estado", catalog = "dbestoque", schema = "public")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Setor.findAll", query = "SELECT s FROM Setor s"),
-    @NamedQuery(name = "Setor.findById", query = "SELECT s FROM Setor s WHERE s.id = :id"),
-    @NamedQuery(name = "Setor.findByDescricao", query = "SELECT s FROM Setor s WHERE s.descricao = :descricao")})
-public class Setor implements Serializable {
-
-    @OneToMany(mappedBy = "fkSetor")
-    private Collection<Familia> familiaCollection;
+public class Estado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "descricao")
-    private String descricao;
+    @Column(name = "estad")
+    private String estad;
+    @OneToMany(mappedBy = "fkEstado")
+    private List<Fornecedor> fornecedorList;
 
-    public Setor() {
+    public Estado() {
     }
 
-    public Setor(Integer id) {
+    public Estado(Integer id) {
         this.id = id;
     }
 
@@ -57,12 +50,21 @@ public class Setor implements Serializable {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getEstad() {
+        return estad;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setEstad(String estad) {
+        this.estad = estad;
+    }
+
+    @XmlTransient
+    public List<Fornecedor> getFornecedorList() {
+        return fornecedorList;
+    }
+
+    public void setFornecedorList(List<Fornecedor> fornecedorList) {
+        this.fornecedorList = fornecedorList;
     }
 
     @Override
@@ -75,10 +77,10 @@ public class Setor implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Setor)) {
+        if (!(object instanceof Estado)) {
             return false;
         }
-        Setor other = (Setor) object;
+        Estado other = (Estado) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -87,16 +89,7 @@ public class Setor implements Serializable {
 
     @Override
     public String toString() {
-        return "utfpr.edu.br.model.Setor[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Familia> getFamiliaCollection() {
-        return familiaCollection;
-    }
-
-    public void setFamiliaCollection(Collection<Familia> familiaCollection) {
-        this.familiaCollection = familiaCollection;
+        return "utfpr.edu.br.model.Estado[ id=" + id + " ]";
     }
     
 }

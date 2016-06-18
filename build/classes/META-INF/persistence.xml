@@ -4,6 +4,10 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>utfpr.edu.br.model.Setor</class>
     <class>utfpr.edu.br.model.Fornecedor</class>
+    <class>utfpr.edu.br.model.Familia</class>
+    <class>utfpr.edu.br.model.Estado</class>
+    <class>utfpr.edu.br.model.EntradaProduto</class>
+    <class>utfpr.edu.br.model.Produto</class>
     <shared-cache-mode>ALL</shared-cache-mode>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dbestoque"/>

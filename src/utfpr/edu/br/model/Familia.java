@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -23,16 +25,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author magno
  */
 @Entity
-@Table(name = "setor")
+@Table(name = "familia")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Setor.findAll", query = "SELECT s FROM Setor s"),
-    @NamedQuery(name = "Setor.findById", query = "SELECT s FROM Setor s WHERE s.id = :id"),
-    @NamedQuery(name = "Setor.findByDescricao", query = "SELECT s FROM Setor s WHERE s.descricao = :descricao")})
-public class Setor implements Serializable {
-
-    @OneToMany(mappedBy = "fkSetor")
-    private Collection<Familia> familiaCollection;
+    @NamedQuery(name = "Familia.findAll", query = "SELECT f FROM Familia f"),
+    @NamedQuery(name = "Familia.findById", query = "SELECT f FROM Familia f WHERE f.id = :id"),
+    @NamedQuery(name = "Familia.findByDescricao", query = "SELECT f FROM Familia f WHERE f.descricao = :descricao")})
+public class Familia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,11 +40,16 @@ public class Setor implements Serializable {
     private Integer id;
     @Column(name = "descricao")
     private String descricao;
+    @OneToMany(mappedBy = "fkFamilia")
+    private Collection<Produto> produtoCollection;
+    @JoinColumn(name = "fk_setor", referencedColumnName = "id")
+    @ManyToOne
+    private Setor fkSetor;
 
-    public Setor() {
+    public Familia() {
     }
 
-    public Setor(Integer id) {
+    public Familia(Integer id) {
         this.id = id;
     }
 
@@ -65,6 +69,23 @@ public class Setor implements Serializable {
         this.descricao = descricao;
     }
 
+    @XmlTransient
+    public Collection<Produto> getProdutoCollection() {
+        return produtoCollection;
+    }
+
+    public void setProdutoCollection(Collection<Produto> produtoCollection) {
+        this.produtoCollection = produtoCollection;
+    }
+
+    public Setor getFkSetor() {
+        return fkSetor;
+    }
+
+    public void setFkSetor(Setor fkSetor) {
+        this.fkSetor = fkSetor;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -75,10 +96,10 @@ public class Setor implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Setor)) {
+        if (!(object instanceof Familia)) {
             return false;
         }
-        Setor other = (Setor) object;
+        Familia other = (Familia) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -87,16 +108,7 @@ public class Setor implements Serializable {
 
     @Override
     public String toString() {
-        return "utfpr.edu.br.model.Setor[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Familia> getFamiliaCollection() {
-        return familiaCollection;
-    }
-
-    public void setFamiliaCollection(Collection<Familia> familiaCollection) {
-        this.familiaCollection = familiaCollection;
+        return "utfpr.edu.br.model.Familia[ id=" + id + " ]";
     }
     
 }

@@ -8,45 +8,49 @@ package utfpr.edu.br.model;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author magno
  */
-@Entity
+@MappedSuperclass
+@Table(name = "fornecedor", catalog = "dbestoque", schema = "public")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Fornecedor.findAll", query = "SELECT f FROM Fornecedor f"),
-    @NamedQuery(name = "Fornecedor.findById", query = "SELECT f FROM Fornecedor f WHERE f.id = :id"),
-    @NamedQuery(name = "Fornecedor.findByCnpj", query = "SELECT f FROM Fornecedor f WHERE f.cnpj = :cnpj"),
-    @NamedQuery(name = "Fornecedor.findByRua", query = "SELECT f FROM Fornecedor f WHERE f.rua = :rua"),
-    @NamedQuery(name = "Fornecedor.findByNumero", query = "SELECT f FROM Fornecedor f WHERE f.numero = :numero"),
-    @NamedQuery(name = "Fornecedor.findByCep", query = "SELECT f FROM Fornecedor f WHERE f.cep = :cep"),
-    @NamedQuery(name = "Fornecedor.findByBairro", query = "SELECT f FROM Fornecedor f WHERE f.bairro = :bairro"),
-    @NamedQuery(name = "Fornecedor.findByEstado", query = "SELECT f FROM Fornecedor f WHERE f.estado = :estado"),
-    @NamedQuery(name = "Fornecedor.findByTelefone", query = "SELECT f FROM Fornecedor f WHERE f.telefone = :telefone"),
-    @NamedQuery(name = "Fornecedor.findByRazaoSocial", query = "SELECT f FROM Fornecedor f WHERE f.razaoSocial = :razaoSocial")})
 public class Fornecedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @Column(name = "id")
     private Integer id;
+    @Column(name = "cnpj")
     private String cnpj;
+    @Column(name = "rua")
     private String rua;
+    @Column(name = "numero")
     private String numero;
+    @Column(name = "cep")
     private String cep;
+    @Column(name = "bairro")
     private String bairro;
-    private String estado;
+    @Column(name = "telefone")
     private String telefone;
     @Column(name = "razao_social")
     private String razaoSocial;
+    @Column(name = "cidade")
     private String cidade;
+    @Column(name = "fk_estado")
+    private Integer fk;
+
+    @JoinColumn(name = "fk_estado", referencedColumnName = "id")
+    @ManyToOne
+    private Estado fkEstad;
 
     public Fornecedor() {
     }
@@ -103,14 +107,6 @@ public class Fornecedor implements Serializable {
         this.bairro = bairro;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -125,6 +121,30 @@ public class Fornecedor implements Serializable {
 
     public void setRazaoSocial(String razaoSocial) {
         this.razaoSocial = razaoSocial;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+    
+    public Integer getFk() {
+        return fk;
+    }
+
+    public void setFk(Integer fk) {
+        this.fk = fk;
+    }
+
+    public Estado getFkEstad() {
+        return fkEstad;
+    }
+
+    public void setFkEstad(Estado fkEstad) {
+        this.fkEstad = fkEstad;
     }
 
     @Override
@@ -150,14 +170,6 @@ public class Fornecedor implements Serializable {
     @Override
     public String toString() {
         return "utfpr.edu.br.model.Fornecedor[ id=" + id + " ]";
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
     }
     
 }

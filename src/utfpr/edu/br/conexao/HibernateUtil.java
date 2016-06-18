@@ -23,7 +23,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+import utfpr.edu.br.model.EntradaProduto;
+import utfpr.edu.br.model.Estado;
+import utfpr.edu.br.model.Familia;
 import utfpr.edu.br.model.Fornecedor;
+import utfpr.edu.br.model.Produto;
 
 
 /**
@@ -65,6 +69,10 @@ public class HibernateUtil {
             
             cfg.addAnnotatedClass(Setor.class);
             cfg.addAnnotatedClass(Fornecedor.class);
+            cfg.addAnnotatedClass(Produto.class);
+            cfg.addAnnotatedClass(Estado.class);
+            cfg.addAnnotatedClass(EntradaProduto.class);
+            cfg.addAnnotatedClass(Familia.class);
             
             
                

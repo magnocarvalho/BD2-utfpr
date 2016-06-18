@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utfpr.edu.br.conexao.TransactionUtil;
 import utfpr.edu.br.dao.DaoFornecedor;
+import utfpr.edu.br.model.Estado;
 import utfpr.edu.br.model.Fornecedor;
 import utfpr.edu.br.util.Util;
 
@@ -127,7 +128,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
 
         jLabel10.setText("Estado");
 
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Acre (AC)", "Alagoas (AL)", "Amapá (AP)", "Amazonas (AM)", "Bahia (BA)", "Ceará (CE)", "Distrito Federal (DF)", "Espírito Santo (ES)", "Goiás (GO)", "Maranhão (MA)", "Mato Grosso (MT)", "Mato Grosso do Sul (MS)", "Minas Gerais (MG)", "Pará (PA) ", "Paraíba (PB)", "Paraná (PR)", "Pernambuco (PE)", "Piauí (PI)", "Rio de Janeiro (RJ)", "Rio Grande do Norte (RN)", "Rio Grande do Sul (RS)", "Rondônia (RO)", "Roraima (RR)", "Santa Catarina (SC)", "São Paulo (SP)", "Sergipe (SE)", "Tocantins (TO)" }));
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acre (AC)", "Alagoas (AL)", "Amapá (AP)", "Amazonas (AM)", "Bahia (BA)", "Ceará (CE)", "Distrito Federal (DF)", "Espírito Santo (ES)", "Goiás (GO)", "Maranhão (MA)", "Mato Grosso (MT)", "Mato Grosso do Sul (MS)", "Minas Gerais (MG)", "Pará (PA)", "Paraíba (PB)", "Paraná (PR)", "Pernambuco (PE)", "Piauí (PI)", "Rio de Janeiro (RJ)", "Rio Grande do Norte (RN)", "Rio Grande do Sul (RS)", "Rondônia (RO)", "Roraima (RR)", "Santa Catarina (SC)", "São Paulo (SP)", "Sergipe (SE)", "Tocantins (TO)" }));
 
         try {
             txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -475,7 +476,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
         model = new DefaultTableModel();
 
         model.setColumnIdentifiers(dadosFornecedor);
-
+        Estado e = new Estado();
 
         if (forne != null || forne.isEmpty()) {
             for (Fornecedor f : forne) {
@@ -490,7 +491,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
                     f.getNumero(),
                     f.getBairro(),
                     f.getCidade(),
-                    f.getEstado()
+                    f.getFkEstad()
                     
                 });
             }
@@ -510,15 +511,15 @@ public class FrmFornecedor extends javax.swing.JFrame {
     }
     void limpeza()
     {
-        txtId.setText(null);
-        txtCnpj.setText(null);
-        txtRazao.setText(null);
-        txtCep.setText(null);
-        txtRua.setText(null);
-        txtTelefone.setText(null);
-        txtNumero.setText(null);
-        txtBairro.setText(null);
-        txtCidade.setText(null);
+        txtId.setText("");
+        txtCnpj.setText("");
+        txtRazao.setText("");
+        txtCep.setText("");
+        txtRua.setText("");
+        txtTelefone.setText("");
+        txtNumero.setText("");
+        txtBairro.setText("");
+        txtCidade.setText("");
         
         iniciarTabela();
 
@@ -549,6 +550,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
     }
     private void insert()
     {
+        Estado e = new Estado();
         Fornecedor f = new Fornecedor();
         if (!txtId.getText().isEmpty()) 
         {  //verifica se o campo Codigo esta vazio
@@ -562,7 +564,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
         f.setNumero(txtNumero.getText().trim());
         f.setBairro(txtBairro.getText());
         f.setCidade(txtCidade.getText());
-        f.setEstado(cbxEstado.getItemAt(cbxEstado.getSelectedIndex()));
+        f.setFk(cbxEstado.getSelectedIndex());
         
         
         TransactionUtil.beginTransaction();
@@ -640,8 +642,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
             else
             {
                 txtCep.setText(tbF.getValueAt(i, 4).toString());
-            }
-            
+            }         
             txtRua.setText(tbF.getValueAt(i, 5).toString());
             txtNumero.setText(tbF.getValueAt(i, 6).toString());
             txtBairro.setText(tbF.getValueAt(i, 7).toString());
