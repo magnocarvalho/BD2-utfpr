@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,12 +35,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Fornecedor.findByCidade", query = "SELECT f FROM Fornecedor f WHERE f.cidade = :cidade"),
     @NamedQuery(name = "Fornecedor.findByFkEstado", query = "SELECT f FROM Fornecedor f WHERE f.fkEstado = :fkEstado"),
     @NamedQuery(name = "Fornecedor.findByRegistro", query = "SELECT f FROM Fornecedor f WHERE f.registro = :registro"),
-    @NamedQuery(name = "Fornecedor.findById", query = "SELECT f FROM Fornecedor f WHERE f.id = :id"),
-    @NamedQuery(name = "Fornecedor.findByTelefone", query = "SELECT f FROM Fornecedor f WHERE f.telefone = :telefone")})
+    @NamedQuery(name = "Fornecedor.findByTelefone", query = "SELECT f FROM Fornecedor f WHERE f.telefone = :telefone"),
+    @NamedQuery(name = "Fornecedor.findById", query = "SELECT f FROM Fornecedor f WHERE f.id = :id")})
 public class Fornecedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
     @Column(name = "cnpj")
     private String cnpj;
@@ -58,22 +59,24 @@ public class Fornecedor implements Serializable {
     private Integer fkEstado;
     @Column(name = "registro")
     private Boolean registro;
-    @Basic(optional = false)
-    @Column(name = "id")
-    private int id;
     @Column(name = "telefone")
     private String telefone;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
 
     public Fornecedor() {
     }
 
-    public Fornecedor(String cnpj) {
-        this.cnpj = cnpj;
+    public Fornecedor(Integer id) {
+        this.id = id;
     }
 
-    public Fornecedor(String cnpj, int id) {
-        this.cnpj = cnpj;
+    public Fornecedor(Integer id, String cnpj) {
         this.id = id;
+        this.cnpj = cnpj;
     }
 
     public String getCnpj() {
@@ -148,14 +151,6 @@ public class Fornecedor implements Serializable {
         this.registro = registro;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -164,10 +159,18 @@ public class Fornecedor implements Serializable {
         this.telefone = telefone;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cnpj != null ? cnpj.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -178,7 +181,7 @@ public class Fornecedor implements Serializable {
             return false;
         }
         Fornecedor other = (Fornecedor) object;
-        if ((this.cnpj == null && other.cnpj != null) || (this.cnpj != null && !this.cnpj.equals(other.cnpj))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -186,7 +189,7 @@ public class Fornecedor implements Serializable {
 
     @Override
     public String toString() {
-        return "utfpr.edu.br.model.Fornecedor[ cnpj=" + cnpj + " ]";
+        return "utfpr.edu.br.model.Fornecedor[ id=" + id + " ]";
     }
     
 }
