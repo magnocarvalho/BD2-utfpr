@@ -68,12 +68,11 @@ public class HibernateUtil {
             */
             
             cfg.addAnnotatedClass(Setor.class);
-            cfg.addAnnotatedClass(Fornecedor.class);
             cfg.addAnnotatedClass(Produto.class);
             cfg.addAnnotatedClass(Estado.class);
             cfg.addAnnotatedClass(EntradaProduto.class);
             cfg.addAnnotatedClass(Familia.class);
-            
+            cfg.addAnnotatedClass(Fornecedor.class);
             
                
             sessionFactory = cfg.buildSessionFactory();

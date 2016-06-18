@@ -6,11 +6,13 @@
 package utfpr.edu.br.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,9 +22,13 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author magno
  */
-@MappedSuperclass
+@Entity
 @Table(name = "estado", catalog = "dbestoque", schema = "public")
 @XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
+    @NamedQuery(name = "Estado.findById", query = "SELECT e FROM Estado e WHERE e.id = :id"),
+    @NamedQuery(name = "Estado.findByEstad", query = "SELECT e FROM Estado e WHERE e.estad = :estad")})
 public class Estado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,7 +39,7 @@ public class Estado implements Serializable {
     @Column(name = "estad")
     private String estad;
     @OneToMany(mappedBy = "fkEstado")
-    private List<Fornecedor> fornecedorList;
+    private Set<Fornecedor> fornecedorSet;
 
     public Estado() {
     }
@@ -59,12 +65,12 @@ public class Estado implements Serializable {
     }
 
     @XmlTransient
-    public List<Fornecedor> getFornecedorList() {
-        return fornecedorList;
+    public Set<Fornecedor> getFornecedorSet() {
+        return fornecedorSet;
     }
 
-    public void setFornecedorList(List<Fornecedor> fornecedorList) {
-        this.fornecedorList = fornecedorList;
+    public void setFornecedorSet(Set<Fornecedor> fornecedorSet) {
+        this.fornecedorSet = fornecedorSet;
     }
 
     @Override
