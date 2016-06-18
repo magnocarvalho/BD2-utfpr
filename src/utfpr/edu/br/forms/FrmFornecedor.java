@@ -491,7 +491,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
                     f.getNumero(),
                     f.getBairro(),
                     f.getCidade(),
-                    f.getFkEstad()
+                    f.getFkEstado()
                     
                 });
             }
@@ -564,7 +564,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
         f.setNumero(txtNumero.getText().trim());
         f.setBairro(txtBairro.getText());
         f.setCidade(txtCidade.getText());
-        f.setFk(cbxEstado.getSelectedIndex());
+        f.setFkEstado(cbxEstado.getSelectedIndex());
         
         
         TransactionUtil.beginTransaction();
